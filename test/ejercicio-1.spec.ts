@@ -1,75 +1,169 @@
 import "mocha";
 import { expect } from "chai";
+import { ImperialLength, ImperialMass } from "../src/ejercicio-1";
 
 
-describe("Streamable Collection Tests", () => {
-    describe("Series Collection", () => {
-      const series1 = new Series("Stranger Things", 2016, "Mystery", 3);
-      const series2 = new Series("Breaking Bad", 2008, "Crime", 5);
-      const series3 = new Series("The Crown", 2016, "History", 4);
-      const seriesCollection = new SeriesCollection([series1, series2, series3]);
-  
-      it("should search by year and return the correct series", () => {
-        const result = seriesCollection.searchByYear(2016);
-        expect(result).to.deep.equal([series1, series3]);
-      });
-  
-      it("should search by name and return the correct series", () => {
-        const result = seriesCollection.searchByName("Stranger Things");
-        expect(result).to.deep.equal([series1]);
-      });
-  
-      it("should search by genre and return the correct series", () => {
-        const result = seriesCollection.searchByGenre("Crime");
-        expect(result).to.be.eql([series2]);
-      });
+describe("ImperialLength", function () {
+  describe("#constructor", function () {
+    it("should create an ImperialLength object with correct inches value", function () {
+      const length = new ImperialLength(12, "inches");
+      expect(length.inches).to.equal(12);
     });
-  
-    describe("Movie Collection", () => {
-      const movie1 = new Movie(
-        "The Shawshank Redemption",
-        1994,
-        "Drama",
-        "Pedro"
-      );
-      const movie2 = new Movie("The Godfather", 1972, "Crime", "Juan");
-      const movie3 = new Movie("The Dark Knight", 2008, "Action", "Palomino");
-      const movieCollection = new MovieCollection([movie1, movie2, movie3]);
-  
-      it("should search by year and return the correct movies", () => {
-        const result = movieCollection.searchByYear(2008);
-        expect(result).to.deep.equal([movie3]);
-      });
-  
-      it("should search by name and return the correct movie", () => {
-        const result = movieCollection.searchByName("The Godfather");
-        expect(result).to.deep.equal([movie2]);
-      });
-  
-      it("should search by genre and return the correct movies", () => {
-        const result = movieCollection.searchByGenre("Drama");
-        expect(result).to.be.eql([movie1]);
-      });
+    
+    it("should create an ImperialLength object with correct feet value", function () {
+      const length = new ImperialLength(1, "feet");
+      expect(length.feet).to.equal(1);
     });
+    
+    it("should create an ImperialLength object with correct yards value", function () {
+      const length = new ImperialLength(1, "yards");
+      expect(length.yards).to.equal(1);
+    });
+    
+    it("should create an ImperialLength object with correct miles value", function () {
+      const length = new ImperialLength(1, "miles");
+      expect(length.miles).to.equal(1);
+    });
+    
+    it("should throw an error when given an invalid unit", function () {
+      expect(() => new ImperialLength(1, "invalid")).to.throw(Error, "Invalid unit");
+    });
+  });
   
-    describe("DocumentaryCollection", () => {
-      const documentaries: Documentary[] = [
-        new Documentary("Planet Earth", 2006, "Nature", "David Attenborough"),
-        new Documentary(
-          "The Social Dilemma",
-          2020,
-          "Social Media",
-          "Jeff Orlowski"
-        ),
-        new Documentary("The True Cost", 2015, "Fashion", "Andrew Morgan"),
-      ];
+  describe("#getters", function () {
+    it("should return the correct inches value", function () {
+      const length = new ImperialLength(12, "inches");
+      expect(length.inches).to.equal(12);
+    });
+    
+    it("should return the correct feet value", function () {
+      const length = new ImperialLength(1, "feet");
+      expect(length.feet).to.equal(1);
+    });
+    
+    it("should return the correct yards value", function () {
+      const length = new ImperialLength(1, "yards");
+      expect(length.yards).to.equal(1);
+    });
+    
+    it("should return the correct miles value", function () {
+      const length = new ImperialLength(1, "miles");
+      expect(length.miles).to.equal(1);
+    });
+  });
   
-      const documentaryCollection = new DocumentaryCollection(documentaries);
+  describe("#setters", function () {
+    it("should set the inches value correctly", function () {
+      const length = new ImperialLength(12, "inches");
+      length.inches = 24;
+      expect(length.inches).to.equal(24);
+      expect(length.feet).to.equal(2);
+    });
+    
+    it("should set the feet value correctly", function () {
+      const length = new ImperialLength(1, "feet");
+      length.feet = 2;
+      expect(length.feet).to.equal(2);
+      expect(length.inches).to.equal(24);
+    });
+    
+    it("should set the yards value correctly", function () {
+      const length = new ImperialLength(1, "yards");
+      length.yards = 2;
+      expect(length.yards).to.equal(2);
+      expect(length.feet).to.equal(6);
+    });
+    
+    it("should set the miles value correctly", function () {
+      const length = new ImperialLength(1, "miles");
+      length.miles = 2;
+      expect(length.miles).to.equal(2);
+      expect(length.feet).to.equal(10560);
+    });
+  });
+});
+
+
+
+describe("ImperialMass", function () {
+  describe("#constructor", function () {
+    it("should create an ImperialMass object with correct ounces value", function () {
+      const mass = new ImperialMass(16, "ounces");
+      expect(mass.ounces).to.equal(256);
+    });
+    
+    it("should create an ImperialMass object with correct pounds value", function () {
+      const mass = new ImperialMass(1, "pounds");
+      expect(mass.pounds).to.equal(16);
+    });
+    
+    it("should create an ImperialMass object with correct stones value", function () {
+      const mass = new ImperialMass(1, "stones");
+      expect(mass.stones).to.equal(16);
+    });
+    
+    it("should create an ImperialMass object with correct hundredweights value", function () {
+      const mass = new ImperialMass(1, "hundredweights");
+      expect(mass.hundredweights).to.equal(320);
+    });
+    
+    it("should create an ImperialMass object with correct tons value", function () {
+      const mass = new ImperialMass(1, "tons");
+      expect(mass.tons).to.equal(160);
+    });
+    
+    it("should throw an error when given an invalid unit", function () {
+      expect(() => new ImperialMass(1, "invalid")).to.throw(Error, "Invalid unit");
+    });
+  });
   
-      describe("searchByYear", () => {
-        it("should return documentaries released in a given year", () => {
-          const result = documentaryCollection.searchByYear(2015);
-          expect(result).to.have.lengthOf(1);
-          expect(result[0].title).to.equal("The True Cost");
-        });
-      });
+  describe("#getters", function () {
+    it("should return the correct ounces value", function () {
+      const mass = new ImperialMass(16, "ounces");
+      expect(mass.ounces).to.equal(256);
+    });
+    
+    it("should return the correct pounds value", function () {
+      const mass = new ImperialMass(1, "pounds");
+      expect(mass.pounds).to.equal(16);
+    });
+    
+    it("should return the correct stones value", function () {
+      const mass = new ImperialMass(14, "pounds");
+      expect(mass.stones).to.equal(16);
+    });
+    
+    it("should return the correct hundredweights value", function () {
+      const mass = new ImperialMass(112, "pounds");
+      expect(mass.hundredweights).to.equal(16);
+    });
+    
+    it("should return the correct tons value", function () {
+      const mass = new ImperialMass(2240, "pounds");
+      expect(mass.tons).to.equal(16);
+    });
+  });
+  
+  describe("#setters", function () {
+    it("should set the ounces value correctly", function () {
+      const mass = new ImperialMass(16, "ounces");
+      mass.ounces = 32;
+      expect(mass.ounces).to.equal(32);
+      expect(mass.pounds).to.equal(2);
+    });
+    
+    it("should set the pounds value correctly", function () {
+      const mass = new ImperialMass(1, "pounds");
+      mass.pounds = 2;
+      expect(mass.pounds).to.equal(2);
+      expect(mass.ounces).to.equal(32);
+    });
+    
+    it("should set the stones value correctly", function () {
+      const mass = new ImperialMass(1, "stones");
+      mass.stones = 2;
+      expect(mass.stones).to.equal(2);
+      expect(mass.pounds).to.equal(28);
+    });
+  });
+});
